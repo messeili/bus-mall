@@ -130,7 +130,9 @@ function ClickHandler() {
 
 }
 
-generateProductImage()
+generateProductImage();
+storeOurProducts();
+parseLocalStorage()
 
 function generateChart() {
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -172,7 +174,6 @@ function createOnClickArray() {
 
     }
 }
-
 function createShownArray() {
     for (let index = 0; index < allProducts.length; index++) {
         noOfShownArray.push(allProducts[index].noOfShown);
@@ -180,3 +181,25 @@ function createShownArray() {
     }
 }
 
+function storeOurProducts(){
+    // in order to save our array of objects into the localstorage we will need to formate our json object in json string
+    var jsonStringProducts = JSON.stringify(allProducts);
+    // creare a new property in our localstorage 
+    localStorage.setItem('products',jsonStringProducts);
+}
+
+function parseLocalStorage(){
+    var previousProductsArr =JSON.parse(localStorage.getItem('products'))
+    console.log(previousProductsArr);
+    // this funtcion will update the newly created objects with the old literation values
+    updateArr(previousProductsArr);
+  
+  }
+
+  function updateArr(previousProductsArr){
+    for (let index = 0; index < allProducts.length; index++) {
+      allProducts[index].noOfClicks = previousProductsArr[index].noOfClicks;
+      allProducts[index].noOfShown = previousProductsArr[index].noOfShown;
+      
+    }
+  }
