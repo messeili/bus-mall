@@ -28,8 +28,3 @@ article:nth-of-type(2){
 ul li{
     text-decoration: none;
 }
-
-canvas{
-    width: 400px;
-    height: 200px;
-}

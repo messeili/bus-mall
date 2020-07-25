@@ -99,7 +99,7 @@ function generateFinalResult() {
 }
 
 function ClickHandler() {
-    if (totalClicks < 5) {
+    if (totalClicks < 25) {
         var clickedElement = event.target;
         var clickedElementId = clickedElement.id;
         totalClicks += 1;
