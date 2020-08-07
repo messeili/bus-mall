@@ -1,9 +1,9 @@
-'use-strict'
+'use-strict';
 //all objects array
 var allProducts = [];
 var productsName = [];
 var noOfClicksArray = [];
-var noOfShownArray = []; 
+var noOfShownArray = [];
 var clicksColor = [];
 var shownColor = [];
 var noOfRounds = 25;
@@ -24,7 +24,6 @@ function Product(name, path) {
     shownColor.push(this.shownColor);
 }
 var totalClicks = 0;
-var allProducts = [];
 var firstImageIndex;
 var secImageIndex;
 var thirdImageIndex;
@@ -32,7 +31,11 @@ var imageSection = document.getElementById('imgsec');
 var firstImage = document.getElementById('first-img');
 var secImage = document.getElementById('sec-img');
 var thirdImage = document.getElementById('third-img');
-console.log(imageSection);
+var btClear = document.getElementById('btClear');
+btClear.onclick = function () {
+    localStorage.clear();
+    location.reload();
+};
 
 new Product('bag', 'img/bag.jpg');
 new Product('banana', 'img/banana.jpg');
@@ -56,6 +59,8 @@ new Product('water-can', 'img/water-can.jpg');
 new Product('wine-glass', 'img/wine-glass.jpg');
 
 console.log(noOfClicksArray);
+parseLocalStorage();
+
 
 function generateRandomNumber() {
     var randomNumber = Math.floor(Math.random() * allProducts.length);
@@ -92,7 +97,7 @@ function generateFinalResult() {
     var ulList = document.getElementById('finalResults');
     for (let index = 0; index < allProducts.length; index++) {
         var lilist = document.createElement('li');
-        lilist.textContent = allProducts[index].name + ' shown ' + allProducts[index].noOfShown + " and clicked " + allProducts[index].noOfClicks;
+        lilist.textContent = allProducts[index].name + ' shown ' + allProducts[index].noOfShown + ' and clicked ' + allProducts[index].noOfClicks;
         ulList.appendChild(lilist);
     }
 
@@ -113,16 +118,18 @@ function ClickHandler() {
             allProducts[thirdImageIndex].noOfClicks += 1;
         }
 
-        generateProductImage()
+        generateProductImage();
 
 
 
     } else {
+        storeOurProducts();
         createOnClickArray();
-        createShownArray()
+        console.log(noOfClicksArray);
+        createShownArray();
         generateFinalResult();
         generateChart();
-        console.table(noOfClicksArray);
+        // console.table(noOfClicksArray);
         imageSection.removeEventListener('click', ClickHandler);
 
 
@@ -131,8 +138,8 @@ function ClickHandler() {
 }
 
 generateProductImage();
-storeOurProducts();
-parseLocalStorage()
+// storeOurProducts();
+
 
 function generateChart() {
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -143,15 +150,15 @@ function generateChart() {
             datasets: [{
                 label: 'No of Clicks',
                 data: noOfClicksArray,
-                backgroundColor: clicksColor,
-                borderColor: shownColor,
+                backgroundColor: generateRandomColor(),
+                borderColor: 'black',
                 borderWidth: 1
             },
             {
                 label: 'No of Shown',
                 data: noOfShownArray,
-                backgroundColor: shownColor,
-                    
+                backgroundColor: generateRandomColor(),
+
                 borderColor: clicksColor,
                 borderWidth: 1
             }]
@@ -167,6 +174,8 @@ function generateChart() {
             }
         }
     });
+    myChart.canvas.parentNode.style.height = "100%";
+    myChart.canvas.parentNode.style.width = "50%";
 }
 function createOnClickArray() {
     for (let index = 0; index < allProducts.length; index++) {
@@ -180,26 +189,52 @@ function createShownArray() {
 
     }
 }
-
-function storeOurProducts(){
+function storeOurProducts() {
     // in order to save our array of objects into the localstorage we will need to formate our json object in json string
     var jsonStringProducts = JSON.stringify(allProducts);
     // creare a new property in our localstorage 
-    localStorage.setItem('products',jsonStringProducts);
+    localStorage.setItem('products', jsonStringProducts);
+    console.log(jsonStringProducts);
 }
 
-function parseLocalStorage(){
-    var previousProductsArr =JSON.parse(localStorage.getItem('products'))
+function parseLocalStorage() {
+    var previousProductsArr = JSON.parse(localStorage.getItem('products'));
     console.log(previousProductsArr);
     // this funtcion will update the newly created objects with the old literation values
-    updateArr(previousProductsArr);
-  
-  }
+    if (previousProductsArr !== null) {
+        updateArr(previousProductsArr);
+        // updateArr(previousProductsArr);
 
-  function updateArr(previousProductsArr){
-    for (let index = 0; index < allProducts.length; index++) {
-      allProducts[index].noOfClicks = previousProductsArr[index].noOfClicks;
-      allProducts[index].noOfShown = previousProductsArr[index].noOfShown;
-      
     }
-  }
+
+}
+
+function updateArr(previousProductsArr) {
+    for (let index = 0; index < allProducts.length; index++) {
+        allProducts[index].noOfClicks += previousProductsArr[index].noOfClicks;
+        allProducts[index].noOfShown += previousProductsArr[index].noOfShown;
+    }
+}
+var selectedColor = '';
+function generateRandomColor() {
+    var colors = ['red', 'yellow', 'green', 'black', 'orange', 'pink'];
+    var ranColor = Math.floor(Math.random() * colors.length);
+    selectedColor = colors[ranColor];
+    return selectedColor;
+
+}
+// function preventRepeatColor(selectedColor) {
+//     debugger;
+//     while (selectedColor === localStorage.getItem('selectedColor')) {
+//         selectedColor = generateRandomColor();
+//     }
+//     localStorage.setItem('selectedColor', selectedColor);
+//     console.log(selectedColor);
+//     console.log(localStorage.getItem('selectedColor'));
+
+
+
+
+
+
+

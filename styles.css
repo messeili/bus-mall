@@ -1,3 +1,7 @@
+html{
+    box-sizing: border-box;
+    text-align: center;
+}
 img{
     width: 200px;
     height: 200px;
@@ -7,24 +11,40 @@ img{
 
 }
 h1{
-    font-family:fantasy
+    font-family:fantasy;
+    font-size: 50px;
+
+}
+.container{
+    width: 100%;
+
 }
 
 article{
     display: inline-block;
+    padding: 2%;
 
 }
 
 article:nth-of-type(1){
-    width: 30%;
+    width: 20%;
+    vertical-align: middle;
+
     
 }
 
 article:nth-of-type(2){
     width: 60%;
+    vertical-align: top;
 
 }
 
-ul li{
+#finalResults li{
     text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+#myChart{
+    display: inline-block;
 }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bus Mall</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
     <header>
         <h1>
@@ -13,30 +15,32 @@
         </h1>
     </header>
     <main>
-        
-        <article>
-            <ul id='finalResults'>
+        <div class="container">
+            <article>
+                <div id='finalResults'>
+                </div>
 
-            </ul>
-
-        </article>
+            </article>
+            <article>
+                <button id="btClear">clear Localstorage</button>
+                <section id='imgsec'>
+                    <img id='first-img' src="" alt="">
+                    <img id='sec-img' src="" alt="">
+                    <img id='third-img' src="" alt="">
+                </section>
+            </article>
+        </div>
         <article>
-            <section id='imgsec'>
-                <img id='first-img' src="" alt="">
-                <img id='sec-img' src="" alt="">
-                <img id='third-img' src="" alt="">
-            </section>
-            <section>
-                
-            </section>
+            <canvas id="myChart" width="400" height="200"></canvas>
+
         </article>
 
         <footer>
 
         </footer>
     </main>
-    <canvas id="myChart" width="400px" height="200px"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
